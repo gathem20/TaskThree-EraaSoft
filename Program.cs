@@ -1,82 +1,9 @@
 ﻿
-
-
-
-
-using System.Data.Common;
-
-Instructor instructor = new Instructor();
-instructor.InstructorId = 50;
-instructor.Name = "ahmed";
-instructor.Specialization = "C#";
-System.Console.WriteLine(instructor.PrintDetails());
-Instructor instructor1 = new Instructor();
-instructor1.InstructorId = 51;
-instructor1.Name = "khalid";
-instructor1.Specialization = "C++";
-System.Console.WriteLine(instructor1.PrintDetails());
-Instructor instructor2 = new Instructor();
-instructor2.InstructorId = 52;
-instructor2.Name = "mohamed";
-instructor2.Specialization = "C";
-System.Console.WriteLine(instructor2.PrintDetails());
-
-
-Course course = new Course();
-
-course.CourseId = 215;
-course.Title = "C#";
-course.Instructor = instructor;
-System.Console.WriteLine(course.PrintDetails());
-Course course1 = new Course();
-course1.CourseId = 216;
-course1.Title = "C++";
-course1.Instructor = instructor1;
-System.Console.WriteLine(course1.PrintDetails());
-Course course2 = new Course();
-course2.CourseId = 217;
-course2.Title = "C";
-course2.Instructor = instructor2;
-
-
-System.Console.WriteLine(course2.PrintDetails());
-
-
-Student student = new Student();
-student.Name = "Hassan";
-student.Age = 18;
-student.StudentId = 87;
-student.Enroll(course);
-
-
-System.Console.WriteLine(student.PrintDetails());
-Student student1 = new Student();
-student1.Name = "Hassan";
-student1.Age = 19;
-student1.StudentId = 83;
-student1.Enroll(course);
-student1.Enroll(course2);
-
-
-System.Console.WriteLine(student1.PrintDetails());
-Student student2 = new Student();
-student2.Name = "Hassan";
-student2.Age = 15;
-student2.StudentId = 89;
-student2.Enroll(course);
-student2.Enroll(course1);
-
-
-System.Console.WriteLine(student2.PrintDetails());
-
-
-
-
 StudentManager studentManager = new StudentManager();
 
+bool status = true;
 
-
-while (true)
+while (status)
 {
     System.Console.WriteLine("1. Add Student");
     System.Console.WriteLine("2. Add Instructor");
@@ -100,8 +27,8 @@ while (true)
                 string name = Console.ReadLine();
                 Console.Write("Age: ");
                 int age = Convert.ToInt32(Console.ReadLine());
-                Student students = new Student();
-                if (studentManager.AddStudent(student))
+                Student students = new Student { StudentId = id, Name = name, Age = age };
+                if (studentManager.AddStudent(students))
                     Console.WriteLine("Student added.");
             }
             break;
@@ -115,27 +42,136 @@ while (true)
                 Console.WriteLine("Specialization: ");
                 string specialization = Console.ReadLine();
 
-                Instructor instructors = new Instructor();
-                if (studentManager.AddInstructor(instructor))
-                    Console.WriteLine("Instructor added.");
+                Instructor instructors = new Instructor { InstructorId = id, Name = name, Specialization = specialization };
+                if (studentManager.AddInstructor(instructors))
+                    Console.WriteLine("Instructor Added.");
             }
             break;
         case "3":
+            {
+                Console.WriteLine("Id: ");
+                int id = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Title: ");
+                string title = Console.ReadLine();
+                Console.WriteLine("Instructor Id: ");
+                int instructorId = Convert.ToInt32(Console.ReadLine());
+
+
+                Instructor instructor = studentManager.FindInstructor(instructorId);
+                if (instructor == null)
+                {
+                    System.Console.WriteLine("Invalid InstructorID");
+                    break;
+                }
+                Course courses = new Course { CourseId = id, Title = title, Instructor = instructor };
+                if (studentManager.AddCourse(courses))
+                    Console.WriteLine("Course Added.");
+            }
             break;
         case "4":
+            {
+                System.Console.WriteLine("Student Id: ");
+                int studentId = Convert.ToInt32(Console.ReadLine());
+                System.Console.WriteLine("Course Id: ");
+                int courseId = Convert.ToInt32(Console.ReadLine());
+                if (studentManager.EnrollStudentInCourse(studentId, courseId))
+                {
+                    System.Console.WriteLine("Enrolled successfully.");
+                }
+            }
             break;
         case "5":
+            {
+                for (int i = 0; i < studentManager.Students.Count; i++)
+                {
+                    System.Console.WriteLine(studentManager.Students[i].PrintDetails());
+                }
+            }
             break;
         case "6":
+            {
+                for (int i = 0; i < studentManager.Courses.Count; i++)
+                {
+                    System.Console.WriteLine(studentManager.Courses[i].PrintDetails());
+                }
+            }
             break;
         case "7":
+            {
+                for (int i = 0; i < studentManager.Instructors.Count; i++)
+                {
+                    System.Console.WriteLine(studentManager.Instructors[i].PrintDetails());
+                }
+            }
             break;
         case "8":
+            {
+                System.Console.WriteLine("1-Enter Student Id :");
+                System.Console.WriteLine("2-Enter Student Name :");
+                string searchType = Console.ReadLine();
+                Student student = null;
+                if (searchType == "1")
+                {
+                    System.Console.WriteLine("Enter Student Id");
+                    int id = Convert.ToInt32(Console.ReadLine());
+                    student = studentManager.FindStudent(id);
+                }
+                if (searchType == "2")
+                {
+                    System.Console.WriteLine("Enter Student Name: ");
+                    string name = Console.ReadLine();
+                    for (int i = 0; i < studentManager.Students.Count; i++)
+                    {
+                        if (studentManager.Students[i].Name == name)
+                        {
+                            student = studentManager.Students[i];
+                            break;
+                        }
+                    }
+                }
+
+                if (student != null)
+                    Console.WriteLine(student.PrintDetails());
+                else
+                    Console.WriteLine("Student not found.");
+            }
             break;
+
         case "9":
+            {
+                System.Console.WriteLine("1-Enter Course Id :");
+                System.Console.WriteLine("2-Enter Course Name :");
+                string searchType = Console.ReadLine();
+                Course course = null;
+                if (searchType == "1")
+                {
+                    System.Console.WriteLine("Enter Course Id");
+                    int id = Convert.ToInt32(Console.ReadLine());
+                    course = studentManager.FindCourse(id);
+                }
+                if (searchType == "2")
+                {
+                    System.Console.WriteLine("Enter Course Name: ");
+                    string title = Console.ReadLine();
+                    for (int i = 0; i < studentManager.Courses.Count; i++)
+                    {
+                        if (studentManager.Courses[i].Title == title)
+                        {
+                            course = studentManager.Courses[i];
+                            break;
+                        }
+                    }
+                }
+
+                if (course != null)
+                    Console.WriteLine(course.PrintDetails());
+                else
+                    Console.WriteLine("Course not found.");
+            }
             break;
         case "10":
-
+        System.Console.WriteLine("Good Bye!");
+            status = false;
             break;
     }
 
