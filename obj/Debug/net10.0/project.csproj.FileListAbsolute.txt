@@ -1,0 +1,15 @@
+E:\projects\week 3\task_3\project\obj\Debug\net10.0\project.GeneratedMSBuildEditorConfig.editorconfig
+E:\projects\week 3\task_3\project\obj\Debug\net10.0\project.AssemblyInfoInputs.cache
+E:\projects\week 3\task_3\project\obj\Debug\net10.0\project.AssemblyInfo.cs
+E:\projects\week 3\task_3\project\obj\Debug\net10.0\project.csproj.CoreCompileInputs.cache
+E:\projects\week 3\task_3\project\obj\Debug\net10.0\project.sourcelink.json
+E:\projects\week 3\task_3\project\bin\Debug\net10.0\project.exe
+E:\projects\week 3\task_3\project\bin\Debug\net10.0\project.deps.json
+E:\projects\week 3\task_3\project\bin\Debug\net10.0\project.runtimeconfig.json
+E:\projects\week 3\task_3\project\bin\Debug\net10.0\project.dll
+E:\projects\week 3\task_3\project\bin\Debug\net10.0\project.pdb
+E:\projects\week 3\task_3\project\obj\Debug\net10.0\project.dll
+E:\projects\week 3\task_3\project\obj\Debug\net10.0\refint\project.dll
+E:\projects\week 3\task_3\project\obj\Debug\net10.0\project.pdb
+E:\projects\week 3\task_3\project\obj\Debug\net10.0\project.genruntimeconfig.cache
+E:\projects\week 3\task_3\project\obj\Debug\net10.0\ref\project.dll
